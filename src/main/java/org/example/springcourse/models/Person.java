@@ -1,0 +1,41 @@
+package org.example.springcourse.models;
+
+
+public class Person {
+    private int person_id;
+    private String fullName;
+    private String dateOfBirth;
+
+    public Person(int person_id, String fullName, String dateOfBirth) {
+        this.person_id = person_id;
+        this.fullName = fullName;
+        this.dateOfBirth = dateOfBirth;
+    }
+
+    public Person() {
+    }
+
+    public int getPerson_id() {
+        return person_id;
+    }
+
+    public void setPerson_id(int person_id) {
+        this.person_id = person_id;
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
+
+    public String getDateOfBirth() {
+        return dateOfBirth;
+    }
+
+    public void setDateOfBirth(String dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
+    }
+}
