@@ -5,6 +5,14 @@
     <title>Show people</title>
 </head>
 <body>
+    <p th:text="'Full name: ' + ${person.getFullName()}"> PERSON.FULLNAME</p>
+    <p th:text="'Birth date: ' + ${person.getDateOfBirth()}"> PERSON.DATEOFBIRTH</p>
+    <p th:text="'ID: ' + ${person.getPerson_id()}"> PERSON.ID</p>
+
+<a th:href="@{/people/{id}/edit(id=${person.getPerson_id()})}">Edit</a>
+<form th:method="DELETE" th:action="@{/people/{id}(id=${person.getPerson_id()})}">
+    <input type="submit" value="Delete"/>
+</form>
 
 </body>
 </html>

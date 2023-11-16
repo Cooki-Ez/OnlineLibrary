@@ -20,7 +20,7 @@ import javax.sql.DataSource;
 import java.util.Objects;
 
 @Configuration
-@ComponentScan("config")
+@ComponentScan("org.example.springcourse")
 @PropertySource("classpath:database.properties")
 @EnableWebMvc
 public class SpringConfig implements WebMvcConfigurer{

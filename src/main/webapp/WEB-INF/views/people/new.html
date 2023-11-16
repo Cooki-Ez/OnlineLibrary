@@ -2,9 +2,19 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>New person</title>
 </head>
 <body>
-
+    <form th:method="POST" th:object="${person}" th:action="@{/people}">
+        <label for="fullName">Enter full name: </label>
+        <input type="text" id="fullName" th:field="*{fullName}"/>
+        <div style="color: red" th:if="${#fields.hasErrors('fullName')}" th:errors="*{fullName}"> Name text </div>
+        <br/>
+        <label for="dateOfBirth">Enter birthdate: </label>
+        <input type="text" id="dateOfBirth" th:field="*{dateOfBirth}"/>
+        <div style="color: red" th:if="${#fields.hasErrors('dateOfBirth')}" th:errors="*{dateOfBirth}"> Name text </div>
+        <br/>
+        <input type="submit" value="Create"/>
+    </form>
 </body>
 </html>
