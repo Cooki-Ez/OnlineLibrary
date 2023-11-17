@@ -1,9 +1,12 @@
 package org.example.springcourse.models;
 
 
+import jakarta.validation.constraints.Pattern;
+
 public class Person {
     private int person_id;
     private String fullName;
+    @Pattern(regexp = "\\d{2}\\.\\d{2}\\.\\d{4}")
     private String dateOfBirth;
 
     public Person(int person_id, String fullName, String dateOfBirth) {
