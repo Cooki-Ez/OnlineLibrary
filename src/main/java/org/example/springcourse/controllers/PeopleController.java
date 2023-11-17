@@ -1,7 +1,7 @@
 package org.example.springcourse.controllers;
 
 import jakarta.validation.Valid;
-import org.example.springcourse.dao.personDAO;
+import org.example.springcourse.dao.PersonDAO;
 import org.example.springcourse.models.Person;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,10 +14,10 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/people")
 public class PeopleController {
 
-    private final personDAO personDAO;
+    private final PersonDAO personDAO;
 
     @Autowired
-    public PeopleController(org.example.springcourse.dao.personDAO personDAO) {
+    public PeopleController(PersonDAO personDAO) {
         this.personDAO = personDAO;
     }
 
@@ -30,6 +30,7 @@ public class PeopleController {
     @GetMapping("/{id}")
     public String show(@PathVariable("id") int id, Model model){
         model.addAttribute("person", personDAO.show(id));
+        model.addAttribute("books", personDAO.showBooks(id));
         return "people/show";
     }
 
