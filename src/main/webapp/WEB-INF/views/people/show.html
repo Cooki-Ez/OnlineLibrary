@@ -9,10 +9,20 @@
     <p th:text="'Birth date: ' + ${person.getDateOfBirth()}"> PERSON.DATEOFBIRTH</p>
     <p th:text="'ID: ' + ${person.getPerson_id()}"> PERSON.ID</p>
 
+<hr/>
+    <div th:if="${#lists.size(books) != 0}">
+        <div th:each="book : ${books}">
+            <a th:href="@{/books/{id}(id=${book.getBook_id()})}" th:text="${book.getName()} + ' | ' + ${book.getAuthor()} + ' | ' + ${book.getYear()}"></a>
+        </div>
+    </div>
+    <div th:if="${#lists.size(books) == 0}">
+        <p>No books were taken</p>
+    </div>
+
+<hr/>
 <a th:href="@{/people/{id}/edit(id=${person.getPerson_id()})}">Edit</a>
 <form th:method="DELETE" th:action="@{/people/{id}(id=${person.getPerson_id()})}">
     <input type="submit" value="Delete"/>
 </form>
-
 </body>
 </html>
