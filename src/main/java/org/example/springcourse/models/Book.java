@@ -2,27 +2,27 @@ package org.example.springcourse.models;
 
 public class Book {
     private int book_id;
-    private Integer person_id;
+    private Person person;
     private String name;
     private String author;
     private int year;
 
-    public Book(String name, String author, int year, Integer person_id) {
+    public Book(String name, String author, int year, Person person) {
         this.name = name;
         this.author = author;
         this.year = year;
-        this.person_id = person_id;
+        this.person = person;
     }
 
     public Book() {
     }
 
-    public Integer getPerson_id() {
-        return person_id;
+    public Person getPerson() {
+        return person;
     }
 
-    public void setPerson_id(Integer person_id) {
-        this.person_id = person_id;
+    public void setPerson(Person person) {
+        this.person = person;
     }
 
     public String getName() {

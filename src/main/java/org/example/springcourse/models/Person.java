@@ -4,7 +4,7 @@ package org.example.springcourse.models;
 import jakarta.validation.constraints.Pattern;
 
 public class Person {
-    private int person_id;
+    private Integer person_id;
     private String fullName;
     @Pattern(regexp = "\\d{2}\\.\\d{2}\\.\\d{4}")
     private String dateOfBirth;
@@ -18,11 +18,11 @@ public class Person {
     public Person() {
     }
 
-    public int getPerson_id() {
+    public Integer getPerson_id() {
         return person_id;
     }
 
-    public void setPerson_id(int person_id) {
+    public void setPerson_id(Integer person_id) {
         this.person_id = person_id;
     }
 
