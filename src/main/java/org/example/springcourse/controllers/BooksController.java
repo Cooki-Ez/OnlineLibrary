@@ -81,6 +81,4 @@ public class BooksController {
         bookDAO.freeBook(id);
         return "redirect:/books/{id}";
     }
-
-
 }

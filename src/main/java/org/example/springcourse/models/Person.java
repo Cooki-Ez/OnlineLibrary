@@ -1,16 +1,28 @@
 package org.example.springcourse.models;
 
 
+import jakarta.persistence.*;
 import jakarta.validation.constraints.Pattern;
 
+import java.util.List;
+
+@Entity
+@Table(name = "Person")
 public class Person {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "person_id")
     private Integer person_id;
+    @Column(name = "fullname")
     private String fullName;
     @Pattern(regexp = "\\d{2}\\.\\d{2}\\.\\d{4}")
+    @Column(name = "dateofbirth")
     private String dateOfBirth;
 
-    public Person(int person_id, String fullName, String dateOfBirth) {
-        this.person_id = person_id;
+    @OneToMany(mappedBy = "person", cascade = CascadeType.PERSIST)
+    private List<Book> books;
+
+    public Person(String fullName, String dateOfBirth) {
         this.fullName = fullName;
         this.dateOfBirth = dateOfBirth;
     }

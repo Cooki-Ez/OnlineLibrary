@@ -1,10 +1,22 @@
 package org.example.springcourse.models;
 
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "Book")
 public class Book {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "book_id")
     private int book_id;
+    @ManyToOne
+    @JoinColumn(name = "person_id", referencedColumnName = "person_id")
     private Person person;
+    @Column(name = "name")
     private String name;
+    @Column(name = "author")
     private String author;
+    @Column(name = "year")
     private int year;
 
     public Book(String name, String author, int year, Person person) {

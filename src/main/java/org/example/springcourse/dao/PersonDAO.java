@@ -2,10 +2,13 @@ package org.example.springcourse.dao;
 
 import org.example.springcourse.models.Book;
 import org.example.springcourse.models.Person;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -13,38 +16,53 @@ import java.util.Optional;
 @Component
 public class PersonDAO {
     private final JdbcTemplate jdbcTemplate;
+    private final SessionFactory sessionFactory;
 
     @Autowired
-    public PersonDAO(JdbcTemplate jdbcTemplate) {
+    public PersonDAO(JdbcTemplate jdbcTemplate, SessionFactory sessionFactory) {
         this.jdbcTemplate = jdbcTemplate;
+        this.sessionFactory = sessionFactory;
     }
 
-    public List<Person> index(){
-        return jdbcTemplate.query("SELECT * FROM Person", new BeanPropertyRowMapper<>(Person.class));
+    @Transactional(readOnly = true)
+    public List<Person> index() {
+        return sessionFactory.getCurrentSession().createQuery("from Person", Person.class)
+                .getResultList();
     }
 
-    public void save(Person person){
-        jdbcTemplate.update("INSERT INTO person(fullname, dateofbirth) VALUES (?, ?)", person.getFullName(), person.getDateOfBirth());
+    @Transactional
+    public void save(Person person) {
+        sessionFactory.getCurrentSession().persist(person);
     }
 
-    public void update(int id, Person person){
-        jdbcTemplate.update("UPDATE person set fullName=?, dateOfBirth=? where person_id=?", person.getFullName(), person.getDateOfBirth(), id);
+    @Transactional
+    public void update(int id, Person person) {
+        Person toBeUpdated = sessionFactory.getCurrentSession().get(Person.class, id);
+        toBeUpdated.setFullName(person.getFullName());
+        toBeUpdated.setDateOfBirth(person.getDateOfBirth());
     }
 
-    public Person show(int id){
-        return jdbcTemplate.query("select * from Person where person_id=?", new Object[]{id}, new BeanPropertyRowMapper<>(Person.class))
-                .stream().findAny().orElse(null);
-    }
-    public void delete(int id){
-        jdbcTemplate.update("delete from person where person_id=?", id);
+    @Transactional
+    public Person show(int id) {
+        return sessionFactory.getCurrentSession().get(Person.class, id);
     }
 
-    public List<Book> showBooks(int id){
-        return jdbcTemplate.query("select * from Book join Person on Book.person_id=person.person_id and Book.person_id=?", new Object[]{id}, new BeanPropertyRowMapper<>(Book.class));
+    @Transactional
+    public void delete(int id) {
+        Session session = sessionFactory.getCurrentSession();
+        session.remove(session.get(Person.class, id));
+    }
+@Transactional
+    public List<Book> showBooks(int id) {
+        return sessionFactory.getCurrentSession().createQuery("from Book b join b.person where b.person.id=:personId", Book.class)
+                .setParameter("personId", id)
+                .getResultList();
     }
 
-    public Optional<Person> show(String fullName){
-        return jdbcTemplate.query("Select * from Person where fullName=?", new Object[]{fullName}, new BeanPropertyRowMapper<>(Person.class)).stream().findAny();
+    public Person show(String fullName) {
+        return sessionFactory.getCurrentSession().createQuery("from Person where fullName like :fullname", Person.class)
+                .setParameter("fullname", fullName)
+                .getSingleResultOrNull();
     }
 
 }
