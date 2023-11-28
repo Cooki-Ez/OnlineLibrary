@@ -5,7 +5,7 @@
     <title>New book</title>
 </head>
 <body>
-<form th:method="PATCH" th:object="${book}" th:action="@{/books/{id}(id=${book.getBook_id()})}">
+<form th:method="PATCH" th:object="${book}" th:action="@{/books/{id}(id=${book.getId()})}">
     <label for="name">Enter name: </label>
     <input type="text" id="name" th:field="*{name}" th:value="${book.getName()}"/>
     <div style="color: red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"> Name text </div>

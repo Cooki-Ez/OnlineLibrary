@@ -7,10 +7,10 @@ import jakarta.persistence.*;
 public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "book_id")
-    private int book_id;
+    @Column(name = "id")
+    private int id;
     @ManyToOne
-    @JoinColumn(name = "person_id", referencedColumnName = "person_id")
+    @JoinColumn(name = "person_id", referencedColumnName = "id")
     private Person person;
     @Column(name = "name")
     private String name;
@@ -45,12 +45,12 @@ public class Book {
         this.name = name;
     }
 
-    public int getBook_id() {
-        return book_id;
+    public int getId() {
+        return id;
     }
 
-    public void setBook_id(int book_id) {
-        this.book_id = book_id;
+    public void setId(int book_id) {
+        this.id = book_id;
     }
 
     public String getAuthor() {

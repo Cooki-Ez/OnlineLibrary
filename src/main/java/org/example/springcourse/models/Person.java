@@ -11,15 +11,15 @@ import java.util.List;
 public class Person {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "person_id")
-    private Integer person_id;
+    @Column(name = "id")
+    private Integer id;
     @Column(name = "fullname")
     private String fullName;
     @Pattern(regexp = "\\d{2}\\.\\d{2}\\.\\d{4}")
-    @Column(name = "dateofbirth")
+    @Column(name = "date_of_birth")
     private String dateOfBirth;
 
-    @OneToMany(mappedBy = "person", cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "person", cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     private List<Book> books;
 
     public Person(String fullName, String dateOfBirth) {
@@ -30,12 +30,12 @@ public class Person {
     public Person() {
     }
 
-    public Integer getPerson_id() {
-        return person_id;
+    public Integer getId() {
+        return id;
     }
 
-    public void setPerson_id(Integer person_id) {
-        this.person_id = person_id;
+    public void setId(Integer person_id) {
+        this.id = person_id;
     }
 
     public String getFullName() {
@@ -52,5 +52,13 @@ public class Person {
 
     public void setDateOfBirth(String dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
+    }
+
+    public List<Book> getBooks() {
+        return books;
+    }
+
+    public void setBooks(List<Book> books) {
+        this.books = books;
     }
 }
