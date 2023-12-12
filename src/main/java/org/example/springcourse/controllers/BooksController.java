@@ -6,10 +6,13 @@ import org.example.springcourse.models.Person;
 import org.example.springcourse.services.BooksService;
 import org.example.springcourse.services.PeopleService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/books")
@@ -20,14 +23,16 @@ public class BooksController {
     @Autowired
     public BooksController(BooksService booksService, PeopleService peopleService) {
         this.booksService = booksService;
-
         this.peopleService = peopleService;
     }
 
 
     @GetMapping()
-    public String index(Model model){
-        model.addAttribute("books", booksService.index());
+    public String index(Model model,
+                        @RequestParam(value = "page", required = false) Optional<Integer> page,
+                        @RequestParam(value = "books_per_page", required = false) Optional<Integer> booksPerPage,
+                        @RequestParam(value = "sort_by_year", required = false) Optional<Boolean> sortByYear){
+        model.addAttribute("books", booksService.index(page , booksPerPage, sortByYear));
         return "books/index";
     }
 
@@ -83,4 +88,13 @@ public class BooksController {
         booksService.freeBook(id);
         return "redirect:/books/{id}";
     }
+
+    @GetMapping("/search")
+    public String search(Model model, @RequestParam(value = "query", required = false) String query){
+        System.out.println(query);
+        model.addAttribute("book", booksService.findBookByQuery(query));
+        return "books/search";
+    }
+
+
 }

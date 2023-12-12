@@ -19,7 +19,7 @@ public class Person {
     @Column(name = "date_of_birth")
     private String dateOfBirth;
 
-    @OneToMany(mappedBy = "person", cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "person", cascade = CascadeType.PERSIST)
     private List<Book> books;
 
     public Person(String fullName, String dateOfBirth) {

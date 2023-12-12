@@ -3,7 +3,7 @@ package org.example.springcourse.services;
 import org.example.springcourse.models.Book;
 import org.example.springcourse.models.Person;
 import org.example.springcourse.repositories.PeopleRepository;
-import org.hibernate.Session;
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,8 +21,10 @@ public class PeopleService {
         this.peopleRepository = peopleRepository;
     }
 
-    public List<Book> getBooksByPerson(Person person){
-        return peopleRepository.findById(person.getId()).get().getBooks();
+    public List<Book> getBooksByPersonId(int id){
+        Person person = getById(id);
+        Hibernate.initialize(person.getBooks());
+        return person.getBooks();
     }
 
 

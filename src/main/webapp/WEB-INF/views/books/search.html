@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Search</title>
+</head>
+<body>
+<form th:method="GET" th:action="@{/books/search}">
+    <label for="search">Enter name: </label>
+    <input type="text" id="search" name="query"/>
+    <br/>
+    <button type="submit">Search</button>
+</form>
+<div th:if="${book == null}">
+    <p th:text="'No such book found'"></p>
+</div>
+<div th:if="${book != null}">
+    <p th:text="${book.name} + ', ' + ${book.author} + ', ' + ${book.year}"></p>
+    <div th:if="${book.person != null}">
+        <p th:text="'This book is owned by: ' + ${book.person.fullName}"></p>
+    </div>
+    <div th:if="${book.person == null}">
+        <p th:text="'This book is available'"></p>
+    </div>
+</div>
+<hr>
+</body>
+</html>
