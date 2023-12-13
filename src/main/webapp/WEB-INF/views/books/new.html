@@ -19,6 +19,7 @@
     <div style="color: red" th:if="${#fields.hasErrors('year')}" th:errors="*{year}"> year text </div>
     <br/>
     <input type="hidden" th:field="*{person.id}" th:value="null"/>
+    <input type="hidden" th:field="*{dateTaken}" th:value="null"/>
     <input type="submit" value="Create"/>
 </form>
 </body>

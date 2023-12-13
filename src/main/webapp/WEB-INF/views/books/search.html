@@ -17,7 +17,7 @@
 <div th:if="${book != null}">
     <p th:text="${book.name} + ', ' + ${book.author} + ', ' + ${book.year}"></p>
     <div th:if="${book.person != null}">
-        <p th:text="'This book is owned by: ' + ${book.person.fullName}"></p>
+        <p th:style="${book.getOverdue()} ? 'color: red' : ''" th:text="'This book is owned by: ' + ${book.person.fullName}"></p>
     </div>
     <div th:if="${book.person == null}">
         <p th:text="'This book is available'"></p>

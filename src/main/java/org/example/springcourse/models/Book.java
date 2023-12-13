@@ -2,6 +2,8 @@ package org.example.springcourse.models;
 
 import jakarta.persistence.*;
 
+import java.time.LocalDateTime;
+
 @Entity
 @Table(name = "Book")
 public class Book {
@@ -19,6 +21,12 @@ public class Book {
     @Column(name = "year")
     private int year;
 
+    @Column(name = "date_taken")
+    private LocalDateTime dateTaken;
+
+    @Transient
+    private boolean overdue = false;
+
     public Book(String name, String author, int year, Person person) {
         this.name = name;
         this.author = author;
@@ -27,6 +35,21 @@ public class Book {
     }
 
     public Book() {
+    }
+
+    public LocalDateTime getDateTaken() {
+        return dateTaken;
+    }
+
+    public boolean getOverdue(){
+        if(dateTaken.isBefore(LocalDateTime.now().minusDays(10)))
+            overdue = true;
+        return overdue;
+    }
+
+
+    public void setDateTaken(LocalDateTime dateTaken) {
+        this.dateTaken = dateTaken;
     }
 
     public Person getPerson() {

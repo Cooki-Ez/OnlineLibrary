@@ -11,6 +11,7 @@ import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -52,6 +53,7 @@ public class BooksService {
     @Transactional
     public void addOwner(int bookId, int OwnerNewId) {
         Book book = booksRepository.findById(bookId).get();
+        book.setDateTaken(LocalDateTime.now());
         book.setPerson(peopleRepository.findById(OwnerNewId).get());
     }
 
